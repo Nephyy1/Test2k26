@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -33,7 +33,6 @@ export default function Home() {
       
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
 
-      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[#F2F0E9]/90 backdrop-blur-sm border-b-4 border-black">
         <div className={`${marker.className} text-2xl md:text-3xl relative`}>
           <span className="relative z-10">NEPHYY<span className="text-[#FF3333]">.</span>DEV</span>
@@ -51,7 +50,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
         <motion.div style={{ y: yParallax }} className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
@@ -347,9 +345,6 @@ function CodeIcon({size, className}: {size:number, className?:string}) {
     )
 }
 
-// -----------------------------------------------------
-// IMPROVED NEO-BRUTALISM CHAT WIDGET (Mobile Friendly)
-// -----------------------------------------------------
 function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([
@@ -399,7 +394,6 @@ function ChatWidget() {
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             className="mb-2 w-[calc(100vw-32px)] md:w-[380px] bg-[#F2F0E9] border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col overflow-hidden relative"
           >
-            {/* Header Brutal */}
             <div className="bg-[#FF0099] p-3 border-b-[4px] border-black flex justify-between items-center select-none">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#00FFFF] border-2 border-black"></div>
@@ -413,7 +407,6 @@ function ChatWidget() {
               </button>
             </div>
 
-            {/* Chat Body */}
             <div className="h-[350px] bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] bg-[#F2F0E9] p-4 overflow-y-auto space-y-4" ref={scrollRef}>
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -442,7 +435,6 @@ function ChatWidget() {
               )}
             </div>
 
-            {/* Input Area */}
             <div className="bg-white p-3 border-t-[4px] border-black flex gap-2">
               <input 
                 type="text" 
@@ -464,7 +456,6 @@ function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Trigger Button - Responsive */}
       <motion.button 
         whileHover={{ scale: 1.05, rotate: -3 }}
         whileTap={{ scale: 0.95 }}
@@ -472,8 +463,7 @@ function ChatWidget() {
         className="group relative"
       >
         <div className="absolute inset-0 bg-black translate-x-1 translate-y-1"></div>
-        {/* DESKTOP BUTTON (Big) */}
-        <div className="hidden md:flex relative bg-[#FF3333] text-white border-[4px] border-black p-3 items-center gap-3 pr-6 hover:bg-[#FF0099] transition-colors">
+        <div className="relative bg-[#FF3333] text-white border-[4px] border-black p-3 flex items-center gap-3 pr-6 hover:bg-[#FF0099] transition-colors">
            <div className="bg-black p-2 border-2 border-white">
               <MessageSquare size={24} className="text-[#00FFFF]" />
            </div>
@@ -482,13 +472,7 @@ function ChatWidget() {
               <div className={`text-xl font-black leading-none uppercase`}>CHAT AI</div>
            </div>
         </div>
-        
-        {/* MOBILE BUTTON (Small/Icon Only) */}
-        <div className="md:hidden relative bg-[#FF3333] text-white border-[3px] border-black w-14 h-14 flex items-center justify-center hover:bg-[#FF0099] transition-colors">
-            {isOpen ? <ChevronDown size={32} strokeWidth={3} /> : <MessageSquare size={28} strokeWidth={3} />}
-        </div>
       </motion.button>
     </div>
   );
 }
-   
