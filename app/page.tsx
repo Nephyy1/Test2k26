@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, Palette, BookOpen, AlertTriangle, Send, Star, Play, Pause, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2 } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
-import { useRef } from "react";
-import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 
 const oswald = Oswald({ subsets: ["latin"] });
 const marker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
@@ -20,7 +19,6 @@ export default function Home() {
 
   const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  // Data Inventory Tech
   const arsenal = [
     { name: "NEXT.JS", icon: Globe, level: "90%", color: "bg-[#FF0099]", desc: "WEB FRAMEWORK" },
     { name: "REACT", icon: Atom, level: "85%", color: "bg-[#00FFFF]", desc: "UI LIBRARY" },
@@ -35,7 +33,6 @@ export default function Home() {
       
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
 
-      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[#F2F0E9]/90 backdrop-blur-sm border-b-4 border-black">
         <div className={`${marker.className} text-2xl md:text-3xl relative`}>
           <span className="relative z-10">NEPHYY<span className="text-[#FF3333]">.</span>DEV</span>
@@ -53,11 +50,9 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO SECTION - REVISED WITH CUT-OUT IMAGE */}
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
         <motion.div style={{ y: yParallax }} className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
-          {/* LEFT SIDE: TEXT */}
           <div className="text-center lg:text-left relative z-20 flex-1">
               <div className="mb-6 inline-block relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-40 h-8 bg-[#FF3333] -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
@@ -96,35 +91,27 @@ export default function Home() {
                </div>
           </div>
 
-          {/* RIGHT SIDE: CUT-OUT IMAGE */}
           <div className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 hover:rotate-0 transition-transform duration-500 z-10 group">
-             {/* Glitch Shadow Layer */}
              <div 
                 className="absolute inset-0 bg-[#00FFFF] translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
              ></div>
              
-             {/* Main Image Layer */}
              <div 
                 className="relative w-full h-full bg-gray-900 grayscale group-hover:grayscale-0 transition-all duration-500 contrast-125 overflow-hidden border-b-4 border-black" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
              >
-                {/* Placeholder Image - Ganti src ini dengan foto asli Anda nanti */}
                 <img 
                     src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" 
                     alt="Nephyy Profile" 
                     className="object-cover w-full h-full scale-110 group-hover:scale-100 transition-transform duration-700"
                 />
-                
-                {/* Glitch Overlay Effect */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
              </div>
 
-             {/* TAPE (Selotip) Element */}
              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#FFD700]/90 rotate-[-2deg] backdrop-blur-sm border border-white/20 shadow-sm z-20"></div>
              <div className="absolute bottom-8 -right-4 w-24 h-6 bg-[#FF3333]/90 rotate-[45deg] backdrop-blur-sm border border-white/20 shadow-sm z-20"></div>
 
-             {/* Floating Badge */}
              <div className="absolute -bottom-6 -left-6 bg-black text-white p-3 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-5deg] z-30">
                 <CodeIcon size={24} className="animate-pulse" />
              </div>
@@ -133,7 +120,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* MARQUEE */}
       <div className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
         <div className="flex animate-[marquee_25s_linear_infinite] whitespace-nowrap">
@@ -146,7 +132,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* PERSONAL STATS */}
       <section className="py-24 px-4 bg-white border-b-4 border-black relative">
         <div className="max-w-6xl mx-auto">
            <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -165,7 +150,6 @@ export default function Home() {
 
               <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
                   
-                  {/* Hobby Receipt */}
                   <div className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
                      <div className="border-b-2 border-dashed border-black pb-4 mb-4 text-center">
                         <div className="flex justify-center mb-2"><ShoppingBag size={32} /></div>
@@ -186,7 +170,6 @@ export default function Home() {
                      <div className="absolute -bottom-4 left-0 w-full h-4 bg-white border-b-4 border-l-4 border-r-4 border-black" style={{ clipPath: "polygon(0% 0%, 5% 100%, 10% 0%, 15% 100%, 20% 0%, 25% 100%, 30% 0%, 35% 100%, 40% 0%, 45% 100%, 50% 0%, 55% 100%, 60% 0%, 65% 100%, 70% 0%, 75% 100%, 80% 0%, 85% 100%, 90% 0%, 95% 100%, 100% 0%)" }}></div>
                   </div>
 
-                  {/* Idol/Game Player */}
                   <div className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
                      <div className="bg-[#2a2a2a] p-4 border-2 border-[#444] h-full flex flex-col justify-between">
                         <div>
@@ -228,7 +211,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TECH ARSENAL (INVENTORY GRID) */}
       <section className="py-20 px-4 bg-[#00FFFF] border-b-4 border-black relative overflow-hidden">
          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
          
@@ -239,10 +221,9 @@ export default function Home() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 {arsenal.map((tech, index) => (
-                    <motion.div 
+                    <div 
                         key={index}
-                        whileHover={{ y: -5 }}
-                        className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default"
+                        className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default hover:-translate-y-2 transition-transform"
                     >
                         <div className={`p-3 rounded-full border-2 border-black ${tech.color} group-hover:scale-110 transition-transform`}>
                             <tech.icon size={32} className="text-black" />
@@ -256,13 +237,12 @@ export default function Home() {
                         <div className="w-full h-3 bg-gray-200 border-2 border-black rounded-full overflow-hidden mt-2">
                             <div className={`h-full ${tech.color}`} style={{ width: tech.level }}></div>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
          </div>
       </section>
 
-      {/* PROJECTS SECTION */}
       <section id="projects" className="py-24 px-4 md:px-12 bg-[#F2F0E9]">
         <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-4 border-black pb-4">
@@ -278,7 +258,6 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 
-                {/* Template 1 */}
                 <div className="group relative opacity-90 hover:opacity-100 transition-opacity">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
@@ -306,7 +285,6 @@ export default function Home() {
                    </div>
                 </div>
 
-                {/* Template 2 */}
                 <div className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
@@ -338,7 +316,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="bg-black text-[#F2F0E9] py-16 px-4 md:px-12 border-t-8 border-[#FFD700]">
         <div className="max-w-5xl mx-auto text-center">
            <h2 className={`${oswald.className} text-[3rem] md:text-[5rem] leading-none mb-8 uppercase`}>
@@ -356,13 +333,134 @@ export default function Home() {
            </div>
         </div>
       </footer>
+
+      {/* CHAT WIDGET */}
+      <ChatWidget />
     </main>
   );
 }
 
-// Icon Helper
 function CodeIcon({size, className}: {size:number, className?:string}) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
     )
 }
+
+function ChatWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([
+    {role: 'model', text: 'Yo! Gw Nephyy AI. Mau nanya apa bro? JKT48? Coding?'}
+  ]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSend = async () => {
+    if (!input.trim() || loading) return;
+    
+    const userMsg = input;
+    setInput('');
+    setMessages(prev => [...prev, {role: 'user', text: userMsg}]);
+    setLoading(true);
+
+    try {
+      // NOTE: Ganti URL ini dengan endpoint API route yang sudah dibuat
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message: userMsg })
+      });
+      
+      const data = await res.json();
+      setMessages(prev => [...prev, {role: 'model', text: data.text || "Error: AI lagi ngambek."}]);
+    } catch (e) {
+      setMessages(prev => [...prev, {role: 'model', text: "Connection Lost. Coba lagi nanti."}]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50 font-mono">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            className="mb-4 w-[350px] bg-black border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+          >
+            {/* Header Window */}
+            <div className="bg-[#FF0099] px-3 py-2 border-b-4 border-black flex justify-between items-center cursor-move">
+              <div className="flex items-center gap-2">
+                <Terminal size={18} className="text-white" />
+                <span className="font-bold text-white tracking-wider">NEPHYY_AI.EXE</span>
+              </div>
+              <button onClick={() => setIsOpen(false)} className="bg-black text-white hover:bg-white hover:text-black w-6 h-6 flex items-center justify-center border border-white">
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Chat Body */}
+            <div className="h-[350px] bg-[#F2F0E9] p-4 overflow-y-auto space-y-3" ref={scrollRef}>
+              {messages.map((m, i) => (
+                <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[80%] p-3 text-sm font-bold border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] ${m.role === 'user' ? 'bg-white text-black' : 'bg-[#00FFFF] text-black'}`}>
+                    {m.text}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="flex justify-start">
+                   <div className="bg-black text-[#00FFFF] p-2 text-xs font-bold animate-pulse border-2 border-[#00FFFF]">
+                     THINKING...
+                   </div>
+                </div>
+              )}
+            </div>
+
+            {/* Input Area */}
+            <div className="bg-white p-2 border-t-4 border-black flex gap-2">
+              <input 
+                type="text" 
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                placeholder="Type command..."
+                className="flex-1 bg-gray-100 border-2 border-black px-2 py-1 text-sm font-bold focus:outline-none focus:bg-[#FFD700]"
+              />
+              <button onClick={handleSend} disabled={loading} className="bg-black text-white p-2 border-2 border-black hover:bg-[#FF3333] transition-colors">
+                {loading ? <Loader2 size={18} className="animate-spin"/> : <Send size={18} />}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.button 
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="group relative"
+      >
+        <div className="absolute inset-0 bg-black translate-x-1 translate-y-1"></div>
+        <div className="relative bg-[#FF3333] text-white border-4 border-black p-3 flex items-center gap-3 pr-6">
+           <div className="bg-black p-2 border-2 border-white">
+              <MessageSquare size={24} className="text-[#00FFFF]" />
+           </div>
+           <div className="text-left">
+              <div className="text-[10px] font-bold text-black leading-none">VIRTUAL CLONE</div>
+              <div className={`text-xl font-black leading-none ${marker.className}`}>CHAT AI</div>
+           </div>
+        </div>
+      </motion.button>
+    </div>
+  );
+}
+      
