@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useVelocity } from "framer-motion";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown, Radio, Disc, SkipForward, SkipBack, Monitor } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -12,12 +12,17 @@ const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"] });
 
 export default function Home() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
+  const { scrollY } = useScroll();
+  
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const skewVelocity = useTransform(smoothVelocity, [-1000, 1000], [-5, 5]);
 
-  const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const xLeft = useTransform(scrollY, [0, 800], [0, -200]);
+  const xRight = useTransform(scrollY, [0, 800], [0, 200]);
+  const yParallax = useTransform(scrollY, [0, 800], [0, 300]);
+  const rotateScroll = useTransform(scrollY, [0, 1000], [0, 45]);
+  const rotateScrollNegative = useTransform(scrollY, [0, 1000], [0, -45]);
 
   const arsenal = [
     { name: "NEXT.JS", icon: Globe, level: "90%", color: "bg-[#FF0099]", desc: "WEB FRAMEWORK" },
@@ -51,9 +56,9 @@ export default function Home() {
       </nav>
 
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
-        <motion.div style={{ y: yParallax }} className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
-          <div className="text-center lg:text-left relative z-20 flex-1">
+          <motion.div style={{ y: yParallax }} className="text-center lg:text-left relative z-20 flex-1">
               <div className="mb-6 inline-block relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-40 h-8 bg-[#FF3333] -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
                 <span className={`${marker.className} text-lg md:text-xl px-6 py-2 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] uppercase tracking-widest relative block`}>
@@ -61,17 +66,17 @@ export default function Home() {
                 </span>
               </div>
 
-              <h1 className={`${oswald.className} text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] font-bold uppercase tracking-tighter mb-6`}>
-                  BINTANG <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</span> <br/>
-                  PRATAMA
-              </h1>
+              <div className={`${oswald.className} text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] font-bold uppercase tracking-tighter mb-6`}>
+                  <motion.div style={{ x: xLeft }}>BINTANG</motion.div>
+                  <motion.div style={{ x: xRight }} className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</motion.div>
+                  <motion.div style={{ x: xLeft }}>PRATAMA</motion.div>
+              </div>
               
-              <div className="relative inline-block lg:block">
+              <motion.div style={{ rotate: rotateScroll }} className="relative inline-block lg:block">
                   <div className={`${marker.className} text-white text-2xl md:text-3xl bg-[#FF0099] px-6 py-2 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-3deg] inline-block mb-8`}>
                     aka NEPHYY
                   </div>
-              </div>
+              </motion.div>
 
               <p className="text-lg md:text-xl font-bold max-w-xl mx-auto lg:mx-0 bg-white p-4 border-l-8 border-[#00FFFF] border-y-4 border-r-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 Jurusan <span className="font-black bg-[#FFD700] px-1">TAV</span> (Elektronika/Audio Video). <br/>
@@ -89,9 +94,12 @@ export default function Home() {
                     <Send size={24} />
                   </a>
                </div>
-          </div>
+          </motion.div>
 
-          <div className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 hover:rotate-0 transition-transform duration-500 z-10 group">
+          <motion.div 
+            style={{ rotate: rotateScrollNegative }}
+            className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 transition-transform duration-500 z-10 group"
+          >
              <div 
                 className="absolute inset-0 bg-[#00FFFF] translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
@@ -101,7 +109,6 @@ export default function Home() {
                 className="relative w-full h-full bg-gray-900 grayscale group-hover:grayscale-0 transition-all duration-500 contrast-125 overflow-hidden border-b-4 border-black" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
              >
-                {/* IMAGE DIUBAH KE GAYA NFT/DIGITAL ART */}
                 <img 
                     src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop" 
                     alt="Nephyy Digital Profile" 
@@ -116,12 +123,12 @@ export default function Home() {
              <div className="absolute -bottom-6 -left-6 bg-black text-white p-3 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-5deg] z-30">
                 <CodeIcon size={24} className="animate-pulse" />
              </div>
-          </div>
+          </motion.div>
 
-        </motion.div>
+        </div>
       </section>
 
-      <div className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl">
+      <motion.div style={{ skewX: skewVelocity }} className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl origin-center">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
         <div className="flex animate-[marquee_25s_linear_infinite] whitespace-nowrap">
           {[...Array(10)].map((_, i) => (
@@ -131,27 +138,27 @@ export default function Home() {
              </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <section className="py-24 px-4 bg-white border-b-4 border-black relative">
         <div className="max-w-6xl mx-auto">
            <div className="flex flex-col lg:flex-row gap-12 items-start">
               
               <div className="w-full lg:w-1/3 text-center lg:text-left relative">
-                  <h2 className={`${marker.className} text-7xl rotate-[-3deg] leading-none mb-8 relative z-10`}>
+                  <motion.h2 style={{ x: xRight }} className={`${marker.className} text-7xl rotate-[-3deg] leading-none mb-8 relative z-10`}>
                     LEVEL <br/> <span className="text-[#FF3333]">STATS</span>
-                  </h2>
+                  </motion.h2>
                   
-                  <div className="relative w-40 h-40 mx-auto lg:mx-0 flex items-center justify-center">
+                  <motion.div style={{ rotate: rotateScroll }} className="relative w-40 h-40 mx-auto lg:mx-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-[#FFD700] border-4 border-black animate-[spin_10s_linear_infinite]" style={{ clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)" }}></div>
                     <div className="relative z-10 font-black text-6xl text-black">16</div>
-                  </div>
+                  </motion.div>
                   <p className="font-bold mt-4 bg-black text-white inline-block px-2 rotate-2">AGE / LEVEL</p>
               </div>
 
               <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
                   
-                  <div className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
+                  <motion.div whileHover={{ scale: 1.02 }} className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
                      <div className="border-b-2 border-dashed border-black pb-4 mb-4 text-center">
                         <div className="flex justify-center mb-2"><ShoppingBag size={32} /></div>
                         <h3 className="text-xl font-bold uppercase tracking-widest">HOBBY_RECEIPT.TXT</h3>
@@ -169,9 +176,9 @@ export default function Home() {
                      </div>
                      
                      <div className="absolute -bottom-4 left-0 w-full h-4 bg-white border-b-4 border-l-4 border-r-4 border-black" style={{ clipPath: "polygon(0% 0%, 5% 100%, 10% 0%, 15% 100%, 20% 0%, 25% 100%, 30% 0%, 35% 100%, 40% 0%, 45% 100%, 50% 0%, 55% 100%, 60% 0%, 65% 100%, 70% 0%, 75% 100%, 80% 0%, 85% 100%, 90% 0%, 95% 100%, 100% 0%)" }}></div>
-                  </div>
+                  </motion.div>
 
-                  <div className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
+                  <motion.div whileHover={{ scale: 1.02 }} className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
                      <div className="bg-[#2a2a2a] p-4 border-2 border-[#444] h-full flex flex-col justify-between">
                         <div>
                            <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
@@ -205,7 +212,7 @@ export default function Home() {
                            <Play size={24} />
                         </div>
                      </div>
-                  </div>
+                  </motion.div>
 
               </div>
            </div>
@@ -222,9 +229,10 @@ export default function Home() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 {arsenal.map((tech, index) => (
-                    <div 
+                    <motion.div 
                         key={index}
-                        className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default hover:-translate-y-2 transition-transform"
+                        style={{ rotate: index % 2 === 0 ? rotateScroll : rotateScrollNegative }}
+                        className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default"
                     >
                         <div className={`p-3 rounded-full border-2 border-black ${tech.color} group-hover:scale-110 transition-transform`}>
                             <tech.icon size={32} className="text-black" />
@@ -238,11 +246,13 @@ export default function Home() {
                         <div className="w-full h-3 bg-gray-200 border-2 border-black rounded-full overflow-hidden mt-2">
                             <div className={`h-full ${tech.color}`} style={{ width: tech.level }}></div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
          </div>
       </section>
+
+      <RadioStation />
 
       <section id="projects" className="py-24 px-4 md:px-12 bg-[#F2F0E9]">
         <div className="max-w-7xl mx-auto">
@@ -259,7 +269,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 
-                <div className="group relative opacity-90 hover:opacity-100 transition-opacity">
+                <motion.div style={{ y: useTransform(scrollY, [0, 2000], [0, -50]) }} className="group relative opacity-90 hover:opacity-100 transition-opacity">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
                         TEMPLATE
@@ -284,9 +294,9 @@ export default function Home() {
                           <span className="px-3 py-1 bg-white border-2 border-black text-sm font-bold">MQTT</span>
                       </div>
                    </div>
-                </div>
+                </motion.div>
 
-                <div className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
+                <motion.div style={{ y: useTransform(scrollY, [0, 2000], [0, 50]) }} className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
                         TEMPLATE
@@ -311,7 +321,7 @@ export default function Home() {
                           <span className="px-3 py-1 bg-white border-2 border-black text-sm font-bold">REACT</span>
                       </div>
                    </div>
-                </div>
+                </motion.div>
 
             </div>
         </div>
@@ -338,6 +348,162 @@ export default function Home() {
       <ChatWidget />
     </main>
   );
+}
+
+function RadioStation() {
+  const [channel, setChannel] = useState<'jkt48' | 'h2h'>('jkt48');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const channels = {
+    jkt48: {
+      name: "JKT48 STATION",
+      song: "Flying High - JKT48",
+      video: "/video/jkt48.mp4",
+      audio: "/music/jkt48.mp3",
+      oshi: "MARSHA & LILY",
+      color: "bg-[#FF0099]"
+    },
+    h2h: {
+      name: "H2H STATION",
+      song: "Heart2Heart - Official MV",
+      video: "/video/h2h.mp4",
+      audio: "/music/h2h.mp3",
+      oshi: "JIWOO",
+      color: "bg-[#00FFFF]"
+    }
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.src = channels[channel].audio;
+      if (isPlaying) {
+        audioRef.current.play();
+      }
+    }
+    if (videoRef.current) {
+      videoRef.current.src = channels[channel].video;
+    }
+  }, [channel]);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  return (
+    <section className="py-24 px-4 bg-[#FFD700] border-b-4 border-black relative pattern-diagonal-lines">
+        <div className="max-w-6xl mx-auto">
+            <div className="mb-12 flex items-center gap-4">
+                <div className="w-8 h-8 bg-red-600 animate-pulse rounded-full border-2 border-black"></div>
+                <h2 className={`${oswald.className} text-5xl md:text-7xl font-black uppercase bg-black text-white px-4 py-1`}>
+                    UNDERGROUND BROADCAST
+                </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div className="lg:col-span-2 relative">
+                    <div className="bg-black p-2 border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative">
+                        <div className="absolute top-4 left-4 z-20 flex gap-2">
+                            <span className="bg-red-600 text-white px-2 font-bold text-xs animate-pulse border border-white">REC ●</span>
+                            <span className="bg-black text-[#00FFFF] px-2 font-bold text-xs border border-white font-mono">CAM_01</span>
+                        </div>
+                        
+                        <div className="relative aspect-video bg-gray-900 border-2 border-gray-800 overflow-hidden group">
+                            <video 
+                                ref={videoRef}
+                                src={channels[channel].video}
+                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                autoPlay muted loop playsInline
+                            />
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/scanline.png')] opacity-30 pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                        </div>
+
+                        <div className="mt-2 flex justify-between items-center text-[#00FFFF] font-mono text-xs">
+                            <span>SIGNAL: STRONG</span>
+                            <span>{channels[channel].name}</span>
+                        </div>
+                    </div>
+
+                    <motion.div 
+                        initial={{ rotate: 5 }}
+                        whileHover={{ rotate: 0, scale: 1.1 }}
+                        className="absolute -top-6 -right-6 md:-right-12 w-32 h-40 bg-white p-2 border-2 border-black shadow-lg transform rotate-6 z-30"
+                    >
+                        <div className="bg-gray-200 h-28 mb-2 overflow-hidden relative">
+                             <img 
+                                src={channel === 'jkt48' ? "https://pbs.twimg.com/media/F1a2b3cagAAi_8_.jpg" : "https://i.pinimg.com/736x/2a/1b/3c/2a1b3c4d5e6f7g8h9i0j.jpg"}
+                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all"
+                                alt="Oshi"
+                             />
+                        </div>
+                        <div className="text-center font-bold text-xs bg-yellow-300 border border-black">{channels[channel].oshi}</div>
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-red-500/80 rotate-2"></div>
+                    </motion.div>
+                </div>
+
+                <div className="bg-[#222] border-4 border-black p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] text-white flex flex-col justify-between">
+                    <div>
+                        <div className="flex justify-between items-end mb-6 border-b-2 border-gray-600 pb-2">
+                            <h3 className={`${oswald.className} text-3xl text-white`}>CONTROL DECK</h3>
+                            <Radio size={24} className="text-[#FF0099]" />
+                        </div>
+
+                        <div className="space-y-4 mb-8">
+                            <button 
+                                onClick={() => setChannel('jkt48')}
+                                className={`w-full p-4 border-2 border-black font-bold flex justify-between items-center transition-all ${channel === 'jkt48' ? 'bg-[#FF0099] text-white shadow-[4px_4px_0px_0px_#fff]' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
+                            >
+                                <span>CH 01</span>
+                                <span>JKT48</span>
+                            </button>
+                            <button 
+                                onClick={() => setChannel('h2h')}
+                                className={`w-full p-4 border-2 border-black font-bold flex justify-between items-center transition-all ${channel === 'h2h' ? 'bg-[#00FFFF] text-black shadow-[4px_4px_0px_0px_#fff]' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
+                            >
+                                <span>CH 02</span>
+                                <span>H2H</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#111] p-4 border-2 border-gray-600 relative overflow-hidden">
+                        <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <div className="flex items-center gap-4 mb-4">
+                            <Disc size={40} className={`text-gray-500 ${isPlaying ? 'animate-spin' : ''}`} />
+                            <div className="overflow-hidden w-full bg-black border border-gray-700 p-1">
+                                <div className="whitespace-nowrap animate-[marquee_5s_linear_infinite] font-mono text-sm text-[#FFD700]">
+                                    NOW PLAYING: {channels[channel].song} *** </div>
+                            </div>
+                        </div>
+                        
+                        <div className="flex justify-center gap-6">
+                            <button className="text-gray-400 hover:text-white"><SkipBack size={24}/></button>
+                            <button 
+                                onClick={togglePlay}
+                                className={`w-12 h-12 rounded-full flex items-center justify-center border-2 border-white ${isPlaying ? 'bg-[#00FFFF] text-black' : 'bg-transparent text-white'}`}
+                            >
+                                {isPlaying ? <Pause size={20} fill="black" /> : <Play size={20} fill="white" />}
+                            </button>
+                            <button className="text-gray-400 hover:text-white"><SkipForward size={24}/></button>
+                        </div>
+                        <audio ref={audioRef} loop />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+  )
 }
 
 function CodeIcon({size, className}: {size:number, className?:string}) {
