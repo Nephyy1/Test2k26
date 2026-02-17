@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, Palette, BookOpen, AlertTriangle, Send, Star, Play, Pause, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef } from "react";
+import Image from "next/image";
 
 const oswald = Oswald({ subsets: ["latin"] });
 const marker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
@@ -52,48 +53,81 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center pt-24 pb-10 px-4 overflow-hidden">
-        <motion.div style={{ y: yParallax }} className="relative z-10 text-center max-w-6xl mx-auto">
+      {/* HERO SECTION - REVISED WITH CUT-OUT IMAGE */}
+      <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
+        <motion.div style={{ y: yParallax }} className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
-          <div className="mb-12 inline-block relative z-20">
-             <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-56 h-12 bg-[#FF3333] -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
-             <span className={`${marker.className} text-xl md:text-2xl px-8 py-3 border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase tracking-widest relative transform hover:scale-105 transition-transform cursor-default block`}>
-                STUDENT • 16 Y.O • IDN
-             </span>
-          </div>
-
-          <div className="relative mb-8">
-            <h1 className={`${oswald.className} text-[3.5rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.9] font-bold uppercase tracking-tighter relative z-10`}>
-                BINTANG <br className="md:hidden" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</span> <br />
-                PRATAMA
-            </h1>
-            
-            <div className="absolute -bottom-4 right-0 md:bottom-2 md:right-12 rotate-[-6deg] z-20">
-                <span className={`${marker.className} text-white text-2xl md:text-4xl bg-[#FF0099] px-6 py-2 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]`}>
-                aka NEPHYY
+          {/* LEFT SIDE: TEXT */}
+          <div className="text-center lg:text-left relative z-20 flex-1">
+              <div className="mb-6 inline-block relative">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-40 h-8 bg-[#FF3333] -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
+                <span className={`${marker.className} text-lg md:text-xl px-6 py-2 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] uppercase tracking-widest relative block`}>
+                    STUDENT • 16 Y.O • IDN
                 </span>
-            </div>
+              </div>
+
+              <h1 className={`${oswald.className} text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] font-bold uppercase tracking-tighter mb-6`}>
+                  BINTANG <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</span> <br/>
+                  PRATAMA
+              </h1>
+              
+              <div className="relative inline-block lg:block">
+                  <div className={`${marker.className} text-white text-2xl md:text-3xl bg-[#FF0099] px-6 py-2 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-3deg] inline-block mb-8`}>
+                    aka NEPHYY
+                  </div>
+              </div>
+
+              <p className="text-lg md:text-xl font-bold max-w-xl mx-auto lg:mx-0 bg-white p-4 border-l-8 border-[#00FFFF] border-y-4 border-r-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                Jurusan <span className="font-black bg-[#FFD700] px-1">TAV</span> (Elektronika/Audio Video). <br/>
+                Mixing Solder Fumes with React Components at SMKN 2 Banyumas.
+              </p>
+
+               <div className="flex justify-center lg:justify-start gap-4 mt-8">
+                  <a href="https://instagram.com/shunsinee.x" target="_blank" className="p-3 bg-white border-4 border-black hover:bg-[#FF0099] hover:text-white hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <Instagram size={24} />
+                  </a>
+                  <a href="https://youtube.com/@minionmerah1945?si=U2QstFwFrCeMO64y" target="_blank" className="p-3 bg-white border-4 border-black hover:bg-[#FF0000] hover:text-white hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <Youtube size={24} />
+                  </a>
+                  <a href="https://t.me/zxeexoxee" target="_blank" className="p-3 bg-white border-4 border-black hover:bg-[#0088cc] hover:text-white hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <Send size={24} />
+                  </a>
+               </div>
           </div>
 
-          <p className="text-xl md:text-2xl font-bold max-w-3xl mx-auto mb-12 bg-white inline-block px-6 py-3 border-4 border-black rotate-1 mt-8 shadow-[8px_8px_0px_0px_#00FFFF]">
-             Jurusan <span className="text-[#FF0099] bg-black px-1">TAV</span> (Elektronika/Audio Video) di SMKN 2 Banyumas. <br/>
-             <span className="text-sm md:text-lg opacity-70 italic mt-2 block font-normal border-t-2 border-black/20 pt-2">
-                "Mixing Solder Fumes with React Components"
-             </span>
-          </p>
+          {/* RIGHT SIDE: CUT-OUT IMAGE */}
+          <div className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 hover:rotate-0 transition-transform duration-500 z-10 group">
+             {/* Glitch Shadow Layer */}
+             <div 
+                className="absolute inset-0 bg-[#00FFFF] translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" 
+                style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
+             ></div>
+             
+             {/* Main Image Layer */}
+             <div 
+                className="relative w-full h-full bg-gray-900 grayscale group-hover:grayscale-0 transition-all duration-500 contrast-125 overflow-hidden border-b-4 border-black" 
+                style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
+             >
+                {/* Placeholder Image - Ganti src ini dengan foto asli Anda nanti */}
+                <img 
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" 
+                    alt="Nephyy Profile" 
+                    className="object-cover w-full h-full scale-110 group-hover:scale-100 transition-transform duration-700"
+                />
+                
+                {/* Glitch Overlay Effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+             </div>
 
-          <div className="flex justify-center gap-4 md:gap-6 relative z-20 flex-wrap">
-               <a href="https://instagram.com/shunsinee.x" target="_blank" className="p-3 md:p-4 bg-white border-4 border-black rounded-full hover:bg-[#FF0099] hover:text-white hover:scale-110 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                 <Instagram size={24} strokeWidth={2.5} />
-               </a>
-               <a href="https://youtube.com/@minionmerah1945?si=U2QstFwFrCeMO64y" target="_blank" className="p-3 md:p-4 bg-white border-4 border-black rounded-full hover:bg-[#FF0000] hover:text-white hover:scale-110 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                 <Youtube size={24} strokeWidth={2.5} />
-               </a>
-               <a href="https://t.me/zxeexoxee" target="_blank" className="p-3 md:p-4 bg-white border-4 border-black rounded-full hover:bg-[#0088cc] hover:text-white hover:scale-110 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                 <Send size={24} strokeWidth={2.5} />
-               </a>
+             {/* TAPE (Selotip) Element */}
+             <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#FFD700]/90 rotate-[-2deg] backdrop-blur-sm border border-white/20 shadow-sm z-20"></div>
+             <div className="absolute bottom-8 -right-4 w-24 h-6 bg-[#FF3333]/90 rotate-[45deg] backdrop-blur-sm border border-white/20 shadow-sm z-20"></div>
+
+             {/* Floating Badge */}
+             <div className="absolute -bottom-6 -left-6 bg-black text-white p-3 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-5deg] z-30">
+                <CodeIcon size={24} className="animate-pulse" />
+             </div>
           </div>
 
         </motion.div>
@@ -194,9 +228,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TECH ARSENAL (NEW UPGRADED) */}
+      {/* TECH ARSENAL (INVENTORY GRID) */}
       <section className="py-20 px-4 bg-[#00FFFF] border-b-4 border-black relative overflow-hidden">
-         {/* Background pattern */}
          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
          
          <div className="max-w-6xl mx-auto text-center relative z-10">
@@ -220,7 +253,6 @@ export default function Home() {
                             <p className="text-xs font-bold text-gray-500">{tech.desc}</p>
                         </div>
                         
-                        {/* Power Bar */}
                         <div className="w-full h-3 bg-gray-200 border-2 border-black rounded-full overflow-hidden mt-2">
                             <div className={`h-full ${tech.color}`} style={{ width: tech.level }}></div>
                         </div>
@@ -257,7 +289,7 @@ export default function Home() {
                    <div className="bg-white border-4 border-black p-4 pb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                       <div className="h-64 bg-gray-100 mb-6 border-2 border-black flex items-center justify-center overflow-hidden relative grayscale group-hover:grayscale-0 transition-all">
                          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')] opacity-20"></div>
-                         <AlertTriangle size={64} className="text-gray-400" />
+                         <Cpu size={64} className="text-gray-400" />
                       </div>
                       
                       <div className="flex justify-between items-start mb-4">
@@ -285,7 +317,7 @@ export default function Home() {
                    <div className="bg-white border-4 border-black p-4 pb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                       <div className="h-64 bg-gray-100 mb-6 border-2 border-black flex items-center justify-center overflow-hidden relative grayscale group-hover:grayscale-0 transition-all">
                          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')] opacity-20"></div>
-                         <AlertTriangle size={64} className="text-gray-400" />
+                         <Video size={64} className="text-gray-400" />
                       </div>
                       
                       <div className="flex justify-between items-start mb-4">
@@ -326,4 +358,11 @@ export default function Home() {
       </footer>
     </main>
   );
+}
+
+// Icon Helper
+function CodeIcon({size, className}: {size:number, className?:string}) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+    )
 }
