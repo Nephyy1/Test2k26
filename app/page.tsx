@@ -101,9 +101,10 @@ export default function Home() {
                 className="relative w-full h-full bg-gray-900 grayscale group-hover:grayscale-0 transition-all duration-500 contrast-125 overflow-hidden border-b-4 border-black" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
              >
+                {/* IMAGE DIUBAH KE GAYA NFT/DIGITAL ART */}
                 <img 
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Nephyy Profile" 
+                    src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop" 
+                    alt="Nephyy Digital Profile" 
                     className="object-cover w-full h-full scale-110 group-hover:scale-100 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
