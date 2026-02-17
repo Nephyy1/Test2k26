@@ -1,9 +1,13 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin, Mail, Twitter, Code, Globe, ArrowDown } from "lucide-react";
-import Image from "next/image";
+import { ArrowUpRight, Github, Linkedin, Mail, Twitter, Disc, Zap, Star, Download } from "lucide-react";
+import { Oswald, Permanent_Marker, DM_Sans } from "next/font/google";
 import { useRef } from "react";
+
+const oswald = Oswald({ subsets: ["latin"] });
+const marker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
+const dmSans = DM_Sans({ subsets: ["latin"] });
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -12,149 +16,206 @@ export default function Home() {
     offset: ["start start", "end start"],
   });
 
-  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
+  const stickers = [
+    { text: "NEXT.JS 14", color: "bg-[#FF0099]", rotate: "rotate-3" },
+    { text: "REACT", color: "bg-[#00FFFF]", rotate: "-rotate-2" },
+    { text: "TYPESCRIPT", color: "bg-[#FFD700]", rotate: "rotate-6" },
+    { text: "TAILWIND", color: "bg-[#FF3333]", rotate: "-rotate-3" },
+    { text: "NODE.JS", color: "bg-[#7CFC00]", rotate: "rotate-12" },
+    { text: "SUPABASE", color: "bg-[#FFA500]", rotate: "-rotate-6" },
+  ];
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-neo-bg text-black selection:bg-neo-primary selection:text-black overflow-x-hidden">
+    <main ref={containerRef} className={`min-h-screen bg-[#F2F0E9] text-black overflow-x-hidden ${dmSans.className}`}>
       
-      {/* NAVBAR - Simple & Bold */}
-      <nav className="border-b-[6px] border-black bg-neo-bg px-6 py-5 flex justify-between items-center sticky top-0 z-50">
-        <div className="text-3xl font-black tracking-tighter uppercase">
-          BRUTAL<span className="text-neo-primary">.</span>DEV
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
+
+      <nav className="fixed top-0 w-full z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[#F2F0E9]/90 backdrop-blur-sm border-b-4 border-black">
+        <div className={`${marker.className} text-2xl md:text-3xl relative`}>
+          <span className="relative z-10">PORTFOLIO</span>
+          <span className="absolute -bottom-2 -right-2 w-full h-full bg-[#FFD700] -z-0 skew-x-12"></span>
         </div>
-        <div className="hidden md:flex gap-8 font-black text-lg uppercase">
-          <a href="#work" className="hover:underline decoration-4 underline-offset-4">Work</a>
-          <a href="#contact" className="hover:underline decoration-4 underline-offset-4 decoration-neo-primary">Contact</a>
+        
+        <div className="flex gap-4">
+          <button className="hidden md:block font-bold border-2 border-black px-4 py-2 hover:bg-black hover:text-white transition-colors bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]">
+            WORK
+          </button>
+          <button className="font-bold border-2 border-black px-4 py-2 bg-[#FF3333] text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+            HIRE ME
+          </button>
         </div>
-        <button className="font-black text-lg bg-black text-white px-6 py-3 border-[4px] border-black hover:bg-neo-accent hover:text-black hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all active:translate-y-0 active:shadow-none">
-          HIRE ME
-        </button>
       </nav>
 
-      {/* HERO SECTION - Chaotic & Overlapping */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center px-4 md:px-12 pt-20 overflow-hidden">
-         {/* Background Element */}
-         <div className="absolute top-20 right-0 w-64 h-64 bg-neo-secondary border-[6px] border-black rounded-full opacity-50 blur-[2px] -z-10 animate-pulse"></div>
-         
-         <motion.div style={{ y: yText }} className="relative z-10">
-            <div className="inline-block bg-neo-primary border-[4px] border-black p-4 font-black text-xl mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-2">
-              👋 SCROLL DOWN IF YOU DARE
+      <section className="relative min-h-screen flex flex-col justify-center items-center pt-20 pb-10 px-4 overflow-hidden">
+        <motion.div style={{ y: yParallax }} className="relative z-10 text-center max-w-5xl mx-auto">
+          
+          <div className="mb-6 inline-block relative">
+             <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#FFFF00]/80 rotate-2 border border-black/10 backdrop-blur-sm"></div>
+             <span className={`${marker.className} text-xl md:text-2xl px-6 py-2 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]`}>
+                OPEN TO WORK 2024
+             </span>
+          </div>
+
+          <h1 className={`${oswald.className} text-[4rem] md:text-[7rem] lg:text-[9rem] leading-[0.9] font-bold uppercase tracking-tighter mb-8`}>
+            CREATIVE <br />
+            <span className="relative inline-block px-4 text-white">
+              <span className="absolute inset-0 bg-black -skew-y-2 transform border-4 border-black shadow-[10px_10px_0px_0px_#FF0099]"></span>
+              <span className="relative z-10">DEVELOPER</span>
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl font-bold max-w-2xl mx-auto mb-12 bg-white inline-block px-4 py-2 border-2 border-black -rotate-1">
+             Building <span className="text-[#FF3333]">loud</span> digital experiences for bold brands.
+          </p>
+
+          <div className="flex justify-center gap-6 relative z-20">
+             {[Github, Linkedin, Mail].map((Icon, i) => (
+               <a key={i} href="#" className="p-4 bg-white border-4 border-black rounded-full hover:bg-[#00FFFF] hover:scale-110 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                 <Icon size={28} strokeWidth={2.5} />
+               </a>
+             ))}
+          </div>
+
+        </motion.div>
+
+        <div className="absolute bottom-10 animate-bounce">
+            <div className="w-8 h-12 border-4 border-black rounded-full flex justify-center pt-2">
+                <div className="w-2 h-2 bg-black rounded-full animate-ping"></div>
             </div>
-            
-            <h1 className="text-[5rem] md:text-[8rem] lg:text-[10rem] leading-[0.85] font-black tracking-tighter uppercase break-words">
-              FULL STACK <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neo-purple to-neo-secondary" style={{ WebkitTextStroke: "3px black" }}>
-                REBEL
-              </span>
-            </h1>
-         </motion.div>
-
-         {/* PROFILE IMAGE - Overlapping and Rotated */}
-         <div className="relative z-20 mt-[-50px] md:mt-[-100px] md:ml-auto w-full md:w-[500px]">
-            <motion.div 
-              initial={{ rotate: 4, scale: 0.9 }}
-              whileHover={{ rotate: 0, scale: 1.02 }}
-              className="relative border-[8px] border-black bg-neo-accent p-4 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all"
-            >
-              {/* Placeholder Image from Placehold.co - Replace URL with your CDN link */}
-              <img 
-                src="https://placehold.co/500x600/1a1a1a/FFFdf0.png?text=PROFILE+IMAGE&font=oswald" 
-                alt="Profile Placeholder" 
-                className="w-full h-auto border-[4px] border-black grayscale contrast-125 hover:grayscale-0 transition-all duration-500"
-              />
-              
-              <div className="absolute -bottom-8 -left-8 bg-black text-white p-4 border-[4px] border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                 <Code size={32} />
-              </div>
-            </motion.div>
-         </div>
-      </section>
-
-      {/* ABOUT BLOCK - High Contrast */}
-      <section className="bg-neo-accent border-y-[6px] border-black py-20 px-4 md:px-12 relative">
-        <ArrowDown size={64} className="absolute top-[-32px] left-1/2 -translate-x-1/2 bg-neo-accent border-[4px] border-black p-2 rounded-full animate-bounce" />
-        <div className="max-w-4xl mx-auto text-center">
-           <h2 className="text-4xl md:text-6xl font-black uppercase leading-tight mb-8">
-             I don't just build websites. <br/>
-             I build <span className="bg-black text-white px-2">digital statements.</span>
-           </h2>
-           <p className="text-xl md:text-2xl font-bold border-l-[6px] border-black pl-6 text-left md:text-center inline-block">
-             Specialized in high-impact React & Next.js applications that break the rules of conventional design. No boring templates allowed.
-           </p>
         </div>
       </section>
 
-      {/* SCROLLING MARQUEE */}
-      <div className="bg-black py-6 border-b-[6px] border-black overflow-hidden whitespace-nowrap">
-        <div className="inline-block animate-[marquee_15s_linear_infinite]">
-          <span className="text-white text-4xl font-black mx-8 uppercase">NEXT.JS • TYPESCRIPT • TAILWIND • FRAMER MOTION • FIGMA •</span>
-          <span className="text-neo-primary text-4xl font-black mx-8 uppercase">NEXT.JS • TYPESCRIPT • TAILWIND • FRAMER MOTION • FIGMA •</span>
+      <div className="bg-[#FFD700] py-6 border-y-4 border-black overflow-hidden relative rotate-1 scale-105 z-20">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
+        <div className="flex animate-[marquee_20s_linear_infinite] whitespace-nowrap">
+          {[...Array(10)].map((_, i) => (
+             <div key={i} className="flex items-center mx-8">
+               <span className={`${oswald.className} text-4xl font-black`}>FULL STACK DEV</span>
+               <Star className="ml-8 fill-black" size={32} />
+             </div>
+          ))}
         </div>
       </div>
 
-      {/* WORK SECTION - Stacked & Aggressive */}
-      <section id="work" className="py-24 px-4 md:px-12 max-w-7xl mx-auto">
-         <h2 className="text-6xl md:text-8xl font-black uppercase mb-16 border-b-[6px] border-black inline-block">
-           SELECTED CHAOS
-         </h2>
-         
-         <div className="flex flex-col gap-16">
-            {/* Project 1 */}
-            <div className="group relative bg-white border-[6px] border-black p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all cursor-pointer">
-               <div className="bg-neo-primary border-[4px] border-black px-4 py-2 font-black text-lg inline-block mb-6 -rotate-2 group-hover:rotate-0 transition-all">
-                 E-COMMERCE v99
-               </div>
-               <h3 className="text-5xl md:text-7xl font-black uppercase mb-4 leading-none group-hover:underline decoration-[6px]">
-                 BRUTAL SHOPIFY
-               </h3>
-               <p className="text-2xl font-bold mb-8 max-w-2xl">
-                 A headless commerce experience that punches you in the face with high contrast UI and extreme performance.
-               </p>
-               <ArrowUpRight size={64} className="absolute bottom-8 right-8 border-[4px] border-black p-2 bg-neo-bg group-hover:bg-black group-hover:text-white transition-colors" />
-            </div>
+      <section id="stack" className="py-24 px-4 bg-white border-b-4 border-black relative">
+        <div className="max-w-6xl mx-auto text-center">
+            <h2 className={`${marker.className} text-5xl md:text-7xl mb-16 relative inline-block`}>
+                MY WEAPONS
+                <svg className="absolute -bottom-4 left-0 w-full" height="15" viewBox="0 0 200 15" fill="none">
+                    <path d="M2 13C40 3 80 13 120 3C160 13 200 3 200 3" stroke="#FF0099" strokeWidth="6" strokeLinecap="round"/>
+                </svg>
+            </h2>
 
-            {/* Project 2 */}
-            <div className="group relative bg-neo-secondary border-[6px] border-black p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all cursor-pointer">
-               <div className="bg-black text-white border-[4px] border-white px-4 py-2 font-black text-lg inline-block mb-6 rotate-2 group-hover:rotate-0 transition-all">
-                 WEB3 DASHBOARD
-               </div>
-               <h3 className="text-5xl md:text-7xl font-black uppercase mb-4 leading-none group-hover:underline decoration-[6px]">
-                 DEFI ANALYTICS
-               </h3>
-               <p className="text-2xl font-bold mb-8 max-w-2xl">
-                 Real-time crypto tracking data visualization that looks like a 90s hacker terminal.
-               </p>
-               <ArrowUpRight size={64} className="absolute bottom-8 right-8 border-[4px] border-black p-2 bg-white group-hover:bg-black group-hover:text-white transition-colors" />
+            <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl mx-auto">
+                {stickers.map((tech, index) => (
+                    <motion.div
+                        key={index}
+                        whileHover={{ scale: 1.1, rotate: 0 }}
+                        className={`${tech.color} ${tech.rotate} px-6 py-3 md:px-8 md:py-5 border-4 border-black rounded-full shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] cursor-default`}
+                    >
+                        <span className={`${oswald.className} text-xl md:text-2xl font-bold`}>{tech.text}</span>
+                    </motion.div>
+                ))}
             </div>
-         </div>
+        </div>
       </section>
 
-      {/* FOOTER - Heavy & Simple */}
-      <footer id="contact" className="bg-black text-white border-t-[8px] border-neo-primary py-20 px-4 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
-           <div>
-             <h2 className="text-6xl md:text-8xl font-black uppercase leading-none mb-8 text-neo-primary">
-               LET'S MAKE<br/>NOISE.
-             </h2>
-             <a href="mailto:hello@brutal.dev" className="text-3xl font-black underline decoration-[6px] decoration-white hover:decoration-neo-primary hover:text-neo-primary transition-all">
-               hello@brutal.dev
-             </a>
+      <section className="py-24 px-4 md:px-12 bg-[#F2F0E9]">
+        <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-4 border-black pb-4">
+                <h2 className={`${oswald.className} text-6xl md:text-8xl font-black uppercase`}>
+                    Selected <br/> Works
+                </h2>
+                <div className="hidden md:block mb-4">
+                    <span className={`${marker.className} text-xl bg-black text-white px-4 py-2 -rotate-2 inline-block`}>SCROLL DOWN 👇</span>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+                
+                <div className="group relative">
+                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-40 h-10 bg-[#FFD700]/70 rotate-[-2deg] z-20 border-l border-r border-white/30 backdrop-blur-[1px]"></div>
+                   
+                   <div className="bg-white border-4 border-black p-4 pb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      <div className="h-64 bg-neutral-800 mb-6 border-2 border-black flex items-center justify-center overflow-hidden relative">
+                         <div className="absolute inset-0 bg-[#FF0099] opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                         <Zap size={64} className="text-white" />
+                      </div>
+                      
+                      <div className="flex justify-between items-start mb-4">
+                          <h3 className={`${oswald.className} text-4xl font-bold uppercase`}>Neon Commerce</h3>
+                          <ArrowUpRight size={32} className="border-2 border-black rounded-full p-1 bg-[#00FFFF] hover:bg-black hover:text-white transition-colors"/>
+                      </div>
+                      <p className="text-lg font-bold text-gray-700 leading-relaxed mb-6">
+                          Full stack e-commerce built with Next.js & Stripe. Features high-performance chaotic brutalist layout.
+                      </p>
+                      <div className="flex gap-2">
+                          <span className="px-3 py-1 bg-black text-white text-sm font-bold">NEXT.JS</span>
+                          <span className="px-3 py-1 bg-gray-200 border-2 border-black text-sm font-bold">STRIPE</span>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="group relative md:mt-24">
+                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-40 h-10 bg-[#FF3333]/70 rotate-[2deg] z-20 border-l border-r border-white/30 backdrop-blur-[1px]"></div>
+                   
+                   <div className="bg-white border-4 border-black p-4 pb-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      <div className="h-64 bg-neutral-800 mb-6 border-2 border-black flex items-center justify-center relative">
+                         <Disc size={64} className="text-white animate-spin duration-[10s]" />
+                      </div>
+                      
+                      <div className="flex justify-between items-start mb-4">
+                          <h3 className={`${oswald.className} text-4xl font-bold uppercase`}>Audio SaaS</h3>
+                          <ArrowUpRight size={32} className="border-2 border-black rounded-full p-1 bg-[#7CFC00] hover:bg-black hover:text-white transition-colors"/>
+                      </div>
+                      <p className="text-lg font-bold text-gray-700 leading-relaxed mb-6">
+                          Audio processing platform for musicians. Real-time visualization using WebAudio API.
+                      </p>
+                      <div className="flex gap-2">
+                          <span className="px-3 py-1 bg-black text-white text-sm font-bold">REACT</span>
+                          <span className="px-3 py-1 bg-gray-200 border-2 border-black text-sm font-bold">WEBGL</span>
+                      </div>
+                   </div>
+                </div>
+
+            </div>
+        </div>
+      </section>
+
+      <footer className="bg-black text-[#F2F0E9] py-20 px-4 md:px-12 border-t-8 border-[#FFD700] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF0099] rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+           <h2 className={`${oswald.className} text-[3.5rem] md:text-[6rem] leading-none mb-8 uppercase`}>
+             Ready to make <br/>
+             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] to-[#7CFC00]">some noise?</span>
+           </h2>
+           
+           <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-16">
+              <a href="mailto:hello@example.com" className="group relative inline-block">
+                 <div className="absolute inset-0 bg-[#FF3333] translate-x-2 translate-y-2 border-2 border-white group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
+                 <div className="relative border-2 border-white bg-black px-8 py-4 text-2xl font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                    Start a Project
+                 </div>
+              </a>
+              <button className="flex items-center gap-2 font-bold hover:text-[#FFD700] transition-colors">
+                 <Download size={20} /> DOWNLOAD CV
+              </button>
            </div>
-           <div className="flex gap-6 items-end">
-              <a href="#" className="bg-white text-black p-4 border-[4px] border-black shadow-[6px_6px_0px_0px_#fff] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all">
-                 <Github size={40} />
-              </a>
-              <a href="#" className="bg-neo-accent text-black p-4 border-[4px] border-black shadow-[6px_6px_0px_0px_#fff] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all">
-                 <Twitter size={40} />
-              </a>
-              <a href="#" className="bg-neo-secondary text-black p-4 border-[4px] border-black shadow-[6px_6px_0px_0px_#fff] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all">
-                 <Linkedin size={40} />
-              </a>
+
+           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-bold text-gray-500">
+              <p>© 2024 STREET BRUTALISM.</p>
+              <div className="flex gap-4 mt-4 md:mt-0">
+                 <a href="#" className="hover:text-white">TWITTER</a>
+                 <a href="#" className="hover:text-white">GITHUB</a>
+                 <a href="#" className="hover:text-white">LINKEDIN</a>
+              </div>
            </div>
         </div>
-        <p className="text-center font-bold mt-20 text-gray-500 uppercase">© 2024 BRUTALISM PORTFOLIO. NO RIGHTS RESERVED.</p>
       </footer>
-
     </main>
   );
-        }
+              }
+      
