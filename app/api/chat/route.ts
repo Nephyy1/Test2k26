@@ -28,11 +28,11 @@ export async function POST(req: Request) {
       ],
     });
 
-    const textResponse = response.text ? response.text() : "Error: No response text.";
+    // PERBAIKAN: response.text adalah getter, bukan function
+    const textResponse = response.text || "Error: No response text.";
 
     return NextResponse.json({ text: textResponse });
   } catch (error) {
-    console.error("AI Error:", error);
-    return NextResponse.json({ error: "AI Error (Check API Key)" }, { status: 500 });
+    return NextResponse.json({ error: "AI Error" }, { status: 500 });
   }
 }
