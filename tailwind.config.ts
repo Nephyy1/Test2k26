@@ -2,6 +2,9 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,7 +14,7 @@ const config: Config = {
       colors: {
         neo: {
           bg: "#FFFdf0",
-          main: "#1a1a1a",
+          main: "#000000",
           primary: "#FF6B6B",
           secondary: "#4ECDC4",
           accent: "#FFE66D",
@@ -19,19 +22,13 @@ const config: Config = {
         },
       },
       boxShadow: {
-        neo: "5px 5px 0px 0px rgba(0,0,0,1)",
-        "neo-sm": "3px 3px 0px 0px rgba(0,0,0,1)",
+        neo: "4px 4px 0px 0px rgba(0,0,0,1)",
+        "neo-sm": "2px 2px 0px 0px rgba(0,0,0,1)",
         "neo-hover": "2px 2px 0px 0px rgba(0,0,0,1)",
       },
-      animation: {
-        marquee: "marquee 25s linear infinite",
-      },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
-      },
+      fontFamily: {
+        sans: ['var(--font-space-grotesk)', 'sans-serif'],
+      }
     },
   },
   plugins: [],
