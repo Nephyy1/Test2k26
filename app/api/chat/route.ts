@@ -1,19 +1,20 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
-    const apiKey = process.env.GEMINI_API_KEY || "";
-    const genAI = new GoogleGenerativeAI(apiKey);
     
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-pro",
-      systemInstruction: "Kamu adalah Nephyy (Bintang Putra Pratama), seorang siswa SMK jurusan TAV berumur 16 tahun. Kamu jago coding (Next.js), suka JKT48 (Wota), main game (PUBG/ML), dan bergaya bicara santai, gaul, sedikit tengil tapi pintar. Jangan terlalu formal. Jawaban harus singkat dan to the point."
-    });
+    // Inisialisasi SDK Baru
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-    const chat = model.startChat({
-      history: [
+    // Menggunakan model terbaru yang support systemInstruction via config
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash", // Menggunakan versi flash terbaru yang stabil
+      config: {
+        systemInstruction: "Kamu adalah Nephyy (Bintang Putra Pratama), seorang siswa SMK jurusan TAV berumur 16 tahun. Kamu jago coding (Next.js), suka JKT48 (Wota), main game (PUBG/ML), dan bergaya bicara santai, gaul, sedikit tengil tapi pintar. Jangan terlalu formal. Jawaban harus singkat dan to the point.",
+      },
+      contents: [
         {
           role: "user",
           parts: [{ text: "Siapa kamu?" }],
@@ -22,15 +23,16 @@ export async function POST(req: Request) {
           role: "model",
           parts: [{ text: "Gw Nephyy, digital clone-nya Bintang. Mau nanya soal coding, JKT48, atau spek PC?" }],
         },
+        {
+          role: "user",
+          parts: [{ text: message }],
+        },
       ],
     });
 
-    const result = await chat.sendMessage(message);
-    const response = await result.response;
-    const text = response.text();
-
-    return NextResponse.json({ text });
+    return NextResponse.json({ text: response.text() });
   } catch (error) {
+    console.error("AI Error:", error);
     return NextResponse.json({ error: "AI Error" }, { status: 500 });
   }
 }
