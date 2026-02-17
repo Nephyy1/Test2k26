@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence, useSpring, useVelocity } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown, Radio, Disc, SkipForward, SkipBack, Monitor } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown, Radio, Disc, SkipForward, SkipBack } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -11,19 +11,6 @@ const dmSans = DM_Sans({ subsets: ["latin"] });
 const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"] });
 
 export default function Home() {
-  const containerRef = useRef(null);
-  const { scrollY } = useScroll();
-  
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const skewVelocity = useTransform(smoothVelocity, [-1000, 1000], [-5, 5]);
-
-  const xLeft = useTransform(scrollY, [0, 800], [0, -200]);
-  const xRight = useTransform(scrollY, [0, 800], [0, 200]);
-  const yParallax = useTransform(scrollY, [0, 800], [0, 300]);
-  const rotateScroll = useTransform(scrollY, [0, 1000], [0, 45]);
-  const rotateScrollNegative = useTransform(scrollY, [0, 1000], [0, -45]);
-
   const arsenal = [
     { name: "NEXT.JS", icon: Globe, level: "90%", color: "bg-[#FF0099]", desc: "WEB FRAMEWORK" },
     { name: "REACT", icon: Atom, level: "85%", color: "bg-[#00FFFF]", desc: "UI LIBRARY" },
@@ -34,7 +21,7 @@ export default function Home() {
   ];
 
   return (
-    <main ref={containerRef} className={`min-h-screen bg-[#F2F0E9] text-black overflow-x-hidden ${dmSans.className}`}>
+    <main className={`min-h-screen bg-[#F2F0E9] text-black overflow-x-hidden ${dmSans.className}`}>
       
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
 
@@ -58,7 +45,7 @@ export default function Home() {
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
-          <motion.div style={{ y: yParallax }} className="text-center lg:text-left relative z-20 flex-1">
+          <div className="text-center lg:text-left relative z-20 flex-1">
               <div className="mb-6 inline-block relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-40 h-8 bg-[#FF3333] -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
                 <span className={`${marker.className} text-lg md:text-xl px-6 py-2 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] uppercase tracking-widest relative block`}>
@@ -66,17 +53,17 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className={`${oswald.className} text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] font-bold uppercase tracking-tighter mb-6`}>
-                  <motion.div style={{ x: xLeft }}>BINTANG</motion.div>
-                  <motion.div style={{ x: xRight }} className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</motion.div>
-                  <motion.div style={{ x: xLeft }}>PRATAMA</motion.div>
-              </div>
+              <h1 className={`${oswald.className} text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] font-bold uppercase tracking-tighter mb-6`}>
+                  BINTANG <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-800">PUTRA</span> <br/>
+                  PRATAMA
+              </h1>
               
-              <motion.div style={{ rotate: rotateScroll }} className="relative inline-block lg:block">
+              <div className="relative inline-block lg:block">
                   <div className={`${marker.className} text-white text-2xl md:text-3xl bg-[#FF0099] px-6 py-2 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-3deg] inline-block mb-8`}>
                     aka NEPHYY
                   </div>
-              </motion.div>
+              </div>
 
               <p className="text-lg md:text-xl font-bold max-w-xl mx-auto lg:mx-0 bg-white p-4 border-l-8 border-[#00FFFF] border-y-4 border-r-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 Jurusan <span className="font-black bg-[#FFD700] px-1">TAV</span> (Elektronika/Audio Video). <br/>
@@ -94,12 +81,9 @@ export default function Home() {
                     <Send size={24} />
                   </a>
                </div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            style={{ rotate: rotateScrollNegative }}
-            className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 transition-transform duration-500 z-10 group"
-          >
+          <div className="relative w-72 h-80 md:w-96 md:h-[30rem] shrink-0 rotate-3 hover:rotate-0 transition-transform duration-500 z-10 group">
              <div 
                 className="absolute inset-0 bg-[#00FFFF] translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" 
                 style={{ clipPath: "polygon(10% 0, 100% 0, 95% 90%, 5% 100%, 0 15%)" }}
@@ -123,12 +107,12 @@ export default function Home() {
              <div className="absolute -bottom-6 -left-6 bg-black text-white p-3 border-4 border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-[-5deg] z-30">
                 <CodeIcon size={24} className="animate-pulse" />
              </div>
-          </motion.div>
+          </div>
 
         </div>
       </section>
 
-      <motion.div style={{ skewX: skewVelocity }} className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl origin-center">
+      <div className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
         <div className="flex animate-[marquee_25s_linear_infinite] whitespace-nowrap">
           {[...Array(10)].map((_, i) => (
@@ -138,27 +122,27 @@ export default function Home() {
              </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       <section className="py-24 px-4 bg-white border-b-4 border-black relative">
         <div className="max-w-6xl mx-auto">
            <div className="flex flex-col lg:flex-row gap-12 items-start">
               
               <div className="w-full lg:w-1/3 text-center lg:text-left relative">
-                  <motion.h2 style={{ x: xRight }} className={`${marker.className} text-7xl rotate-[-3deg] leading-none mb-8 relative z-10`}>
+                  <h2 className={`${marker.className} text-7xl rotate-[-3deg] leading-none mb-8 relative z-10`}>
                     LEVEL <br/> <span className="text-[#FF3333]">STATS</span>
-                  </motion.h2>
+                  </h2>
                   
-                  <motion.div style={{ rotate: rotateScroll }} className="relative w-40 h-40 mx-auto lg:mx-0 flex items-center justify-center">
+                  <div className="relative w-40 h-40 mx-auto lg:mx-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-[#FFD700] border-4 border-black animate-[spin_10s_linear_infinite]" style={{ clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)" }}></div>
                     <div className="relative z-10 font-black text-6xl text-black">16</div>
-                  </motion.div>
+                  </div>
                   <p className="font-bold mt-4 bg-black text-white inline-block px-2 rotate-2">AGE / LEVEL</p>
               </div>
 
               <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
                   
-                  <motion.div whileHover={{ scale: 1.02 }} className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
+                  <div className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
                      <div className="border-b-2 border-dashed border-black pb-4 mb-4 text-center">
                         <div className="flex justify-center mb-2"><ShoppingBag size={32} /></div>
                         <h3 className="text-xl font-bold uppercase tracking-widest">HOBBY_RECEIPT.TXT</h3>
@@ -176,9 +160,9 @@ export default function Home() {
                      </div>
                      
                      <div className="absolute -bottom-4 left-0 w-full h-4 bg-white border-b-4 border-l-4 border-r-4 border-black" style={{ clipPath: "polygon(0% 0%, 5% 100%, 10% 0%, 15% 100%, 20% 0%, 25% 100%, 30% 0%, 35% 100%, 40% 0%, 45% 100%, 50% 0%, 55% 100%, 60% 0%, 65% 100%, 70% 0%, 75% 100%, 80% 0%, 85% 100%, 90% 0%, 95% 100%, 100% 0%)" }}></div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div whileHover={{ scale: 1.02 }} className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
+                  <div className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
                      <div className="bg-[#2a2a2a] p-4 border-2 border-[#444] h-full flex flex-col justify-between">
                         <div>
                            <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
@@ -212,7 +196,7 @@ export default function Home() {
                            <Play size={24} />
                         </div>
                      </div>
-                  </motion.div>
+                  </div>
 
               </div>
            </div>
@@ -231,7 +215,7 @@ export default function Home() {
                 {arsenal.map((tech, index) => (
                     <motion.div 
                         key={index}
-                        style={{ rotate: index % 2 === 0 ? rotateScroll : rotateScrollNegative }}
+                        whileHover={{ y: -5 }}
                         className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default"
                     >
                         <div className={`p-3 rounded-full border-2 border-black ${tech.color} group-hover:scale-110 transition-transform`}>
@@ -269,7 +253,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 
-                <motion.div style={{ y: useTransform(scrollY, [0, 2000], [0, -50]) }} className="group relative opacity-90 hover:opacity-100 transition-opacity">
+                <div className="group relative opacity-90 hover:opacity-100 transition-opacity">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
                         TEMPLATE
@@ -294,9 +278,9 @@ export default function Home() {
                           <span className="px-3 py-1 bg-white border-2 border-black text-sm font-bold">MQTT</span>
                       </div>
                    </div>
-                </motion.div>
+                </div>
 
-                <motion.div style={{ y: useTransform(scrollY, [0, 2000], [0, 50]) }} className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
+                <div className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
                         TEMPLATE
@@ -321,7 +305,7 @@ export default function Home() {
                           <span className="px-3 py-1 bg-white border-2 border-black text-sm font-bold">REACT</span>
                       </div>
                    </div>
-                </motion.div>
+                </div>
 
             </div>
         </div>
