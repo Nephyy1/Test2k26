@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause, ChevronDown } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -33,6 +33,7 @@ export default function Home() {
       
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
 
+      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[#F2F0E9]/90 backdrop-blur-sm border-b-4 border-black">
         <div className={`${marker.className} text-2xl md:text-3xl relative`}>
           <span className="relative z-10">NEPHYY<span className="text-[#FF3333]">.</span>DEV</span>
@@ -50,6 +51,7 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-28 pb-10 px-4 overflow-hidden">
         <motion.div style={{ y: yParallax }} className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
           
@@ -345,10 +347,13 @@ function CodeIcon({size, className}: {size:number, className?:string}) {
     )
 }
 
+// -----------------------------------------------------
+// IMPROVED NEO-BRUTALISM CHAT WIDGET (Mobile Friendly)
+// -----------------------------------------------------
 function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([
-    {role: 'model', text: 'Yo! Gw Nephyy AI. Mau nanya apa bro? JKT48? Coding?'}
+    {role: 'model', text: 'YO! NEPHYY AI DISINI. MAU TANYA APA? JKT48 ATAU CODING?'}
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -376,85 +381,114 @@ function ChatWidget() {
       });
       
       const data = await res.json();
-      setMessages(prev => [...prev, {role: 'model', text: data.text || "Error: AI lagi ngambek."}]);
+      setMessages(prev => [...prev, {role: 'model', text: data.text || "SYSTEM ERROR."}]);
     } catch (e) {
-      setMessages(prev => [...prev, {role: 'model', text: "Connection Lost. Coba lagi nanti."}]);
+      setMessages(prev => [...prev, {role: 'model', text: "CONNECTION LOST."}]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-mono">
+    <div className="fixed bottom-4 right-4 z-50 font-mono flex flex-col items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="mb-4 w-[350px] bg-black border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="mb-2 w-[calc(100vw-32px)] md:w-[380px] bg-[#F2F0E9] border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col overflow-hidden relative"
           >
-            <div className="bg-[#FF0099] px-3 py-2 border-b-4 border-black flex justify-between items-center cursor-move">
+            {/* Header Brutal */}
+            <div className="bg-[#FF0099] p-3 border-b-[4px] border-black flex justify-between items-center select-none">
               <div className="flex items-center gap-2">
-                <Terminal size={18} className="text-white" />
-                <span className="font-bold text-white tracking-wider">NEPHYY_AI.EXE</span>
+                <div className="w-4 h-4 bg-[#00FFFF] border-2 border-black"></div>
+                <span className="font-black text-white tracking-widest text-lg drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">NEPHYY_AI.EXE</span>
               </div>
-              <button onClick={() => setIsOpen(false)} className="bg-black text-white hover:bg-white hover:text-black w-6 h-6 flex items-center justify-center border border-white">
-                <X size={16} />
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="bg-black text-white hover:bg-white hover:text-black w-8 h-8 flex items-center justify-center border-2 border-white shadow-[2px_2px_0px_0px_#fff] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+              >
+                <X size={20} strokeWidth={3} />
               </button>
             </div>
 
-            <div className="h-[350px] bg-[#F2F0E9] p-4 overflow-y-auto space-y-3" ref={scrollRef}>
+            {/* Chat Body */}
+            <div className="h-[350px] bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] bg-[#F2F0E9] p-4 overflow-y-auto space-y-4" ref={scrollRef}>
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 text-sm font-bold border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] ${m.role === 'user' ? 'bg-white text-black' : 'bg-[#00FFFF] text-black'}`}>
+                  <div 
+                    className={`
+                      max-w-[85%] p-3 text-sm font-bold border-[3px] border-black 
+                      ${m.role === 'user' 
+                        ? 'bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none' 
+                        : 'bg-[#00FFFF] text-black shadow-[-4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none'
+                      }
+                    `}
+                  >
+                    <div className="text-[10px] uppercase mb-1 opacity-50 border-b border-black/20 pb-1">
+                        {m.role === 'user' ? 'YOU' : 'AI SYSTEM'}
+                    </div>
                     {m.text}
                   </div>
                 </div>
               ))}
               {loading && (
                 <div className="flex justify-start">
-                   <div className="bg-black text-[#00FFFF] p-2 text-xs font-bold animate-pulse border-2 border-[#00FFFF]">
-                     THINKING...
+                   <div className="bg-black text-[#00FFFF] px-4 py-2 text-xs font-black animate-pulse border-[3px] border-[#00FFFF] shadow-[-4px_4px_0px_0px_rgba(0,0,0,1)]">
+                     GENERATING RESPONSE...
                    </div>
                 </div>
               )}
             </div>
 
-            <div className="bg-white p-2 border-t-4 border-black flex gap-2">
+            {/* Input Area */}
+            <div className="bg-white p-3 border-t-[4px] border-black flex gap-2">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Type command..."
-                className="flex-1 bg-gray-100 border-2 border-black px-2 py-1 text-sm font-bold focus:outline-none focus:bg-[#FFD700]"
+                placeholder="TYPE COMMAND..."
+                className="flex-1 bg-white border-[3px] border-black px-3 py-2 text-sm font-bold focus:outline-none focus:bg-[#FFD700] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all placeholder:text-gray-400"
               />
-              <button onClick={handleSend} disabled={loading} className="bg-black text-white p-2 border-2 border-black hover:bg-[#FF3333] transition-colors">
-                {loading ? <Loader2 size={18} className="animate-spin"/> : <Send size={18} />}
+              <button 
+                onClick={handleSend} 
+                disabled={loading} 
+                className="bg-black text-white p-3 border-[3px] border-black hover:bg-[#FF3333] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:shadow-none active:translate-x-0 active:translate-y-0 disabled:opacity-50"
+              >
+                {loading ? <Loader2 size={20} className="animate-spin"/> : <Send size={20} strokeWidth={3} />}
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Trigger Button - Responsive */}
       <motion.button 
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.05, rotate: -3 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
         className="group relative"
       >
         <div className="absolute inset-0 bg-black translate-x-1 translate-y-1"></div>
-        <div className="relative bg-[#FF3333] text-white border-4 border-black p-3 flex items-center gap-3 pr-6">
+        {/* DESKTOP BUTTON (Big) */}
+        <div className="hidden md:flex relative bg-[#FF3333] text-white border-[4px] border-black p-3 items-center gap-3 pr-6 hover:bg-[#FF0099] transition-colors">
            <div className="bg-black p-2 border-2 border-white">
               <MessageSquare size={24} className="text-[#00FFFF]" />
            </div>
            <div className="text-left">
-              <div className="text-[10px] font-bold text-black leading-none">VIRTUAL CLONE</div>
-              <div className={`text-xl font-black leading-none ${marker.className}`}>CHAT AI</div>
+              <div className="text-[10px] font-bold text-black leading-none bg-white px-1 inline-block mb-1">VIRTUAL CLONE</div>
+              <div className={`text-xl font-black leading-none uppercase`}>CHAT AI</div>
            </div>
+        </div>
+        
+        {/* MOBILE BUTTON (Small/Icon Only) */}
+        <div className="md:hidden relative bg-[#FF3333] text-white border-[3px] border-black w-14 h-14 flex items-center justify-center hover:bg-[#FF0099] transition-colors">
+            {isOpen ? <ChevronDown size={32} strokeWidth={3} /> : <MessageSquare size={28} strokeWidth={3} />}
         </div>
       </motion.button>
     </div>
   );
 }
+   
