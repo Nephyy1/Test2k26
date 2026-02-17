@@ -5,14 +5,12 @@ export async function POST(req: Request) {
   try {
     const { message } = await req.json();
     
-    // Inisialisasi SDK Baru (GoogleGenAI)
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-    // MENGGUNAKAN MODEL GEMINI 3 FLASH PREVIEW SESUAI PERINTAH
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview", 
+      model: "gemini-3-flash", 
       config: {
-        systemInstruction: "Kamu adalah Nephyy (Bintang Putra Pratama), seorang siswa SMK jurusan TAV berumur 16 tahun. Kamu jago coding (Next.js), suka JKT48 (Wota), main game (PUBG/ML), dan bergaya bicara santai, gaul, sedikit tengil tapi pintar. Jangan terlalu formal. Jawaban harus singkat dan to the point.",
+        systemInstruction: "Kamu adalah Nephyy (Bintang Putra Pratama), seorang siswa SMK N 2 Banyumas jurusan TAV (Teknik Audio Video) berumur 16 tahun. Kamu jago coding (Next.js), Rakit PC, dan Elektro. FAVORITES: JKT48 (Oshi: Marsha Lenathea & Hilarly Abigail/Lily), Heart2Heart/H2H (Oshi: Jiwoo). MANHWA: Lookism & Omniscient Reader's Viewpoint (ORV). ANIME: One Punch Man, Overlord, Jujutsu Kaisen. Main game (PUBG/ML). Gaya bicara: Santai, gaul, lo-gw, sedikit tengil tapi pintar. Jangan terlalu formal. Jawaban harus singkat dan to the point.",
       },
       contents: [
         {
@@ -30,14 +28,11 @@ export async function POST(req: Request) {
       ],
     });
 
-    // SDK baru mengembalikan response.text langsung sebagai getter/function tergantung versi, 
-    // namun biasanya response.text() atau response.text
-    // Kita handle aman:
-    const textResponse = response.text ? response.text : "Error: No response text.";
+    const textResponse = response.text ? response.text() : "Error: No response text.";
 
     return NextResponse.json({ text: textResponse });
   } catch (error) {
     console.error("AI Error:", error);
-    return NextResponse.json({ error: "AI Error (Check API Key / Model Availability)" }, { status: 500 });
+    return NextResponse.json({ error: "AI Error (Check API Key)" }, { status: 500 });
   }
 }
