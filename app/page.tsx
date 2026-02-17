@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2 } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Terminal, Loader2, Play, Pause } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -334,7 +334,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* CHAT WIDGET */}
       <ChatWidget />
     </main>
   );
@@ -370,7 +369,6 @@ function ChatWidget() {
     setLoading(true);
 
     try {
-      // NOTE: Ganti URL ini dengan endpoint API route yang sudah dibuat
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -396,7 +394,6 @@ function ChatWidget() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="mb-4 w-[350px] bg-black border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
           >
-            {/* Header Window */}
             <div className="bg-[#FF0099] px-3 py-2 border-b-4 border-black flex justify-between items-center cursor-move">
               <div className="flex items-center gap-2">
                 <Terminal size={18} className="text-white" />
@@ -407,7 +404,6 @@ function ChatWidget() {
               </button>
             </div>
 
-            {/* Chat Body */}
             <div className="h-[350px] bg-[#F2F0E9] p-4 overflow-y-auto space-y-3" ref={scrollRef}>
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -425,7 +421,6 @@ function ChatWidget() {
               )}
             </div>
 
-            {/* Input Area */}
             <div className="bg-white p-2 border-t-4 border-black flex gap-2">
               <input 
                 type="text" 
@@ -463,4 +458,3 @@ function ChatWidget() {
     </div>
   );
 }
-      
