@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, Palette, BookOpen, AlertTriangle, Send, Star, Play, Pause, ShoppingBag } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Mail, Youtube, Gamepad2, Music, Palette, BookOpen, AlertTriangle, Send, Star, Play, Pause, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef } from "react";
 
@@ -19,13 +19,14 @@ export default function Home() {
 
   const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  const stickers = [
-    { text: "NEXT.JS", color: "bg-[#FF0099]", rotate: "rotate-3" },
-    { text: "TAV / ELEKTRO", color: "bg-[#00FFFF]", rotate: "-rotate-2" },
-    { text: "AUDIO VIDEO", color: "bg-[#FFD700]", rotate: "rotate-6" },
-    { text: "C++ / IOT", color: "bg-[#FF3333]", rotate: "-rotate-3" },
-    { text: "PREMIERE", color: "bg-[#7CFC00]", rotate: "rotate-12" },
-    { text: "REACT", color: "bg-[#FFA500]", rotate: "-rotate-6" },
+  // Data Inventory Tech
+  const arsenal = [
+    { name: "NEXT.JS", icon: Globe, level: "90%", color: "bg-[#FF0099]", desc: "WEB FRAMEWORK" },
+    { name: "REACT", icon: Atom, level: "85%", color: "bg-[#00FFFF]", desc: "UI LIBRARY" },
+    { name: "IOT / C++", icon: Cpu, level: "75%", color: "bg-[#FF3333]", desc: "HARDWARE" },
+    { name: "PREMIERE", icon: Video, level: "80%", color: "bg-[#7CFC00]", desc: "EDITING" },
+    { name: "AUDIO ENG", icon: Speaker, level: "95%", color: "bg-[#FFD700]", desc: "TAV SKILL" },
+    { name: "ELEKTRO", icon: Zap, level: "88%", color: "bg-[#FFA500]", desc: "CIRCUITS" },
   ];
 
   return (
@@ -33,6 +34,7 @@ export default function Home() {
       
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/crushed-paper.png")' }}></div>
 
+      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[#F2F0E9]/90 backdrop-blur-sm border-b-4 border-black">
         <div className={`${marker.className} text-2xl md:text-3xl relative`}>
           <span className="relative z-10">NEPHYY<span className="text-[#FF3333]">.</span>DEV</span>
@@ -50,6 +52,7 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-24 pb-10 px-4 overflow-hidden">
         <motion.div style={{ y: yParallax }} className="relative z-10 text-center max-w-6xl mx-auto">
           
@@ -96,6 +99,7 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* MARQUEE */}
       <div className="bg-[#FF0099] py-5 border-y-4 border-black overflow-hidden relative -rotate-1 scale-105 z-20 text-white shadow-xl">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
         <div className="flex animate-[marquee_25s_linear_infinite] whitespace-nowrap">
@@ -108,6 +112,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* PERSONAL STATS */}
       <section className="py-24 px-4 bg-white border-b-4 border-black relative">
         <div className="max-w-6xl mx-auto">
            <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -126,6 +131,7 @@ export default function Home() {
 
               <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
                   
+                  {/* Hobby Receipt */}
                   <div className={`bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative ${spaceMono.className} text-sm`}>
                      <div className="border-b-2 border-dashed border-black pb-4 mb-4 text-center">
                         <div className="flex justify-center mb-2"><ShoppingBag size={32} /></div>
@@ -146,6 +152,7 @@ export default function Home() {
                      <div className="absolute -bottom-4 left-0 w-full h-4 bg-white border-b-4 border-l-4 border-r-4 border-black" style={{ clipPath: "polygon(0% 0%, 5% 100%, 10% 0%, 15% 100%, 20% 0%, 25% 100%, 30% 0%, 35% 100%, 40% 0%, 45% 100%, 50% 0%, 55% 100%, 60% 0%, 65% 100%, 70% 0%, 75% 100%, 80% 0%, 85% 100%, 90% 0%, 95% 100%, 100% 0%)" }}></div>
                   </div>
 
+                  {/* Idol/Game Player */}
                   <div className="bg-[#1a1a1a] text-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_#FFD700] relative">
                      <div className="bg-[#2a2a2a] p-4 border-2 border-[#444] h-full flex flex-col justify-between">
                         <div>
@@ -187,19 +194,43 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-[#00FFFF] border-b-4 border-black">
-         <div className="max-w-4xl mx-auto text-center">
-            <h3 className={`${oswald.className} text-4xl mb-8 font-black bg-white inline-block px-4 border-2 border-black`}>TECH ARSENAL</h3>
-            <div className="flex flex-wrap justify-center gap-4">
-                {stickers.map((tech, index) => (
-                    <div key={index} className={`${tech.color} ${tech.rotate} px-4 py-2 border-2 border-black font-bold text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:scale-110 transition-transform cursor-default`}>
-                        {tech.text}
-                    </div>
+      {/* TECH ARSENAL (NEW UPGRADED) */}
+      <section className="py-20 px-4 bg-[#00FFFF] border-b-4 border-black relative overflow-hidden">
+         {/* Background pattern */}
+         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
+         
+         <div className="max-w-6xl mx-auto text-center relative z-10">
+            <h3 className={`${oswald.className} text-5xl mb-12 font-black bg-white inline-block px-8 py-2 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] uppercase transform -rotate-2`}>
+               TECH ARSENAL
+            </h3>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                {arsenal.map((tech, index) => (
+                    <motion.div 
+                        key={index}
+                        whileHover={{ y: -5 }}
+                        className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center justify-between h-48 group cursor-default"
+                    >
+                        <div className={`p-3 rounded-full border-2 border-black ${tech.color} group-hover:scale-110 transition-transform`}>
+                            <tech.icon size={32} className="text-black" />
+                        </div>
+                        
+                        <div className="text-center w-full">
+                            <h4 className={`${oswald.className} text-xl font-bold`}>{tech.name}</h4>
+                            <p className="text-xs font-bold text-gray-500">{tech.desc}</p>
+                        </div>
+                        
+                        {/* Power Bar */}
+                        <div className="w-full h-3 bg-gray-200 border-2 border-black rounded-full overflow-hidden mt-2">
+                            <div className={`h-full ${tech.color}`} style={{ width: tech.level }}></div>
+                        </div>
+                    </motion.div>
                 ))}
             </div>
          </div>
       </section>
 
+      {/* PROJECTS SECTION */}
       <section id="projects" className="py-24 px-4 md:px-12 bg-[#F2F0E9]">
         <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-4 border-black pb-4">
@@ -215,6 +246,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 
+                {/* Template 1 */}
                 <div className="group relative opacity-90 hover:opacity-100 transition-opacity">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
@@ -242,6 +274,7 @@ export default function Home() {
                    </div>
                 </div>
 
+                {/* Template 2 */}
                 <div className="group relative opacity-90 hover:opacity-100 transition-opacity md:mt-12">
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
                       <div className={`${marker.className} text-4xl text-[#FF0099] border-4 border-[#FF0099] p-2 -rotate-12 opacity-80 border-double`}>
@@ -273,6 +306,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="bg-black text-[#F2F0E9] py-16 px-4 md:px-12 border-t-8 border-[#FFD700]">
         <div className="max-w-5xl mx-auto text-center">
            <h2 className={`${oswald.className} text-[3rem] md:text-[5rem] leading-none mb-8 uppercase`}>
