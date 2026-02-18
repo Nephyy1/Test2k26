@@ -347,7 +347,8 @@ function RadioStation() {
       video: "/video/jkt48.mp4",
       audio: "/music/jkt48.mp3",
       oshi: "MARSHA & LILY",
-      color: "bg-[#FF0099]"
+      color: "bg-[#FF0099]",
+      image: "/img/jkt48.jpg"
     },
     h2h: {
       name: "H2H STATION",
@@ -355,7 +356,8 @@ function RadioStation() {
       video: "/video/h2h.mp4",
       audio: "/music/h2h.mp3",
       oshi: "JIWOO",
-      color: "bg-[#00FFFF]"
+      color: "bg-[#00FFFF]",
+      image: "/img/h2h.jpg"
     }
   };
 
@@ -425,7 +427,7 @@ function RadioStation() {
                     >
                         <div className="bg-gray-200 h-28 mb-2 overflow-hidden relative">
                              <img 
-                                src={channel === 'jkt48' ? "https://pbs.twimg.com/media/F1a2b3cagAAi_8_.jpg" : "https://i.pinimg.com/736x/2a/1b/3c/2a1b3c4d5e6f7g8h9i0j.jpg"}
+                                src={channels[channel].image}
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all"
                                 alt="Oshi"
                              />
