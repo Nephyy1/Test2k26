@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, Youtube, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Loader2, Play, Pause, ChevronDown, Radio, Disc, SkipForward, SkipBack, Hammer, Code2, PenTool, Monitor } from "lucide-react";
+import { Instagram, Youtube, Music, ShoppingBag, Atom, Cpu, Globe, Video, Zap, Speaker, Send, MessageSquare, X, Loader2, Play, Pause, ChevronDown, Radio, Disc, SkipForward, SkipBack, Hammer, Code2, PenTool, Monitor, Gamepad2 } from "lucide-react";
 import { Oswald, Permanent_Marker, DM_Sans, Space_Mono } from "next/font/google";
 import { useRef, useState, useEffect } from "react";
 
@@ -27,9 +27,9 @@ export default function Home() {
   ];
 
   const services = [
-    { title: "WEB DEVELOPMENT", desc: "Membangun website brutal & performa tinggi dengan Next.js.", icon: Globe, color: "bg-[#FF0099]", pattern: "https://www.transparenttextures.com/patterns/diagmonds-light.png" },
-    { title: "IOT SYSTEMS", desc: "Integrasi Hardware (ESP32) dengan Software. Monitoring Realtime.", icon: Cpu, color: "bg-[#00FFFF]", pattern: "https://www.transparenttextures.com/patterns/grid-me.png" },
-    { title: "VIDEO EDITING", desc: "Visual storytelling dengan Premiere Pro. Jedag-jedug approved.", icon: Video, color: "bg-[#FFD700]", pattern: "https://www.transparenttextures.com/patterns/diagonal-striped-brick.png" },
+    { title: "WEB DEVELOPMENT", desc: "Membangun website brutal & performa tinggi dengan Next.js.", icon: Globe, color: "bg-[#FF0099]" },
+    { title: "IOT SYSTEMS", desc: "Integrasi Hardware (ESP32) dengan Software. Monitoring Realtime.", icon: Cpu, color: "bg-[#00FFFF]" },
+    { title: "VIDEO EDITING", desc: "Visual storytelling dengan Premiere Pro. Jedag-jedug approved.", icon: Video, color: "bg-[#FFD700]" },
   ];
 
   return (
@@ -261,42 +261,6 @@ export default function Home() {
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {services.map((service, i) => (
                     <div key={i} className="group relative">
-                        <div className={`absolute inset-0 ${service.color} translate-x-2 translate-y-2 border-4 border-black`}></div>
-                        <div className="relative bg-white border-4 border-black p-8 h-full flex flex-col justify-between hover:-translate-y-2 hover:-translate-x-2 transition-transform duration-200">
-                             <div className="absolute top-0 right-0 p-2 bg-black text-white font-mono text-xs font-bold">
-                                SERV_0{i+1}
-                             </div>
-                             
-                             <div>
-                                 <div className={`w-16 h-16 ${service.color} border-4 border-black flex items-center justify-center mb-6`}>
-                                     <service.icon size={32} className="text-black" />
-                                 </div>
-                                 <h3 className={`${oswald.className} text-4xl text-black font-black mb-4 uppercase leading-none`}>
-                                     {service.title}
-                                 </h3>
-                             </div>
-
-                             <div className="mt-4 pt-4 border-t-4 border-black">
-                                 <p className="text-black font-bold font-mono text-sm leading-relaxed">
-                                     {service.desc}
-                                 </p>
-                             </div>
-                        </div>
-                    </div>
-                ))}
-             </div>
-         </div>
-      </section>
-
-      <section className="py-24 px-4 bg-white border-b-4 border-black">
-        <div className="max-w-4xl mx-auto">
-            <h2 className={`${marker.className} text-5xl text-center mb-16 rotate-2`}>
-                <span className="bg-black text-white px-4 shadow-[4px_4px_0px_0px_#FF3333]">TIMELINE</span> LOG
-            </h2>
-
-            <div className="relative border-l-[6px] border-black ml-4 md:ml-0 space-y-16">
-                {timeline.map((item, i) => (
-                    <div key={i} className="relative pl-8 md:pl-16">
                         <div className={`absolute inset-0 ${service.color} translate-x-2 translate-y-2 border-4 border-black`}></div>
                         <div className="relative bg-white border-4 border-black p-8 h-full flex flex-col justify-between hover:-translate-y-2 hover:-translate-x-2 transition-transform duration-200">
                              <div className="absolute top-0 right-0 p-2 bg-black text-white font-mono text-xs font-bold">
